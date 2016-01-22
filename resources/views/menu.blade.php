@@ -3,9 +3,10 @@
         Manage Settings
     </a>
 
-    @if(Auth::user()->user_level==3)
+    @if(Auth::user()->user_level==1)
             <!--Administrator Section-->
     <a href="/administrator" class="list-group-item"><i class="fa fa-lock"></i>&nbsp;&nbsp;Administrator</a>
+    <a href="/users" class="list-group-item"><i class="fa fa-user"></i>&nbsp;&nbsp;Users</a>
     <!--End Section-->
     @endif
     <a href="/settings" class="list-group-item"><i class="fa fa-cog"></i>&nbsp;&nbsp;Settings</a>

@@ -16,6 +16,11 @@ use Hash;
 class SettingsController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
 
     public function index(){
         $user = Settings::find(Auth::user()->id);
@@ -57,7 +62,6 @@ class SettingsController extends Controller
     public function changePassword(PasswordRequest $requests){
         $user = Settings::FindOrFail(Auth::user()->id);
         $user->fill(['password' => Hash::make($requests->newpassword)])->save();
-
 
             return redirect('passwords')->with('message', 'Password changed successfully.');
 
