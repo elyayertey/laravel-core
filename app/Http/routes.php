@@ -40,6 +40,11 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/administrator', 'AdministratorController@index');
     Route::get('/users', 'AdministratorController@users');
     Route::get('/user/edit/{id}', 'UserController@edit');
+    Route::get('/messages/inbox', 'MessageController@index');
+    Route::get('/messages/sent', 'MessageController@sent');
+    Route::get('/messages/compose', 'MessageController@compose');
+    Route::get('/messages/read/{id}', 'MessageController@read');
+
 
 
 
@@ -49,5 +54,9 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('/settings', 'SettingsController@save');
     Route::post('/passwords', 'SettingsController@changePassword');
     Route::post('/users', 'UserController@save');
-    Route::post('/user/delete', 'UserController@delete');
+    Route::post('/user/status', 'UserController@status');
+    Route::post('/compose/send', 'MessageController@send');
+    Route::post('/messages/delete', 'MessageController@delete');
+    Route::post('/messages/read/{id}', 'MessageController@savereply');
+
 });

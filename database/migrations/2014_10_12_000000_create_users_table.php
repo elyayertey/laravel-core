@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Carbon\Carbon;
 
 class CreateUsersTable extends Migration
 {
@@ -30,8 +31,10 @@ class CreateUsersTable extends Migration
             $table->string('photo')->nullable();
             $table->integer('ip_address')->nullable();
             $table->integer('user_level')->default('1');
-            $table->integer('is_active')->default('0');
-            $table->timestamp('last_login');
+            $table->string('is_active')->default('Blocked');
+            $table->integer('is_subscriber')->default('0');
+            $table->timestamp('expires_on')->nullable();
+            $table->timestamp('last_login')->default(Carbon::now());
             $table->rememberToken();
             $table->timestamps();
         });

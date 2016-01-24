@@ -11,7 +11,7 @@
     <div class="container">
         {!! Form::open(['url' => 'users', 'files'=>false]) !!}
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
 
 
                 @include('menu')
@@ -94,9 +94,8 @@
                                     {!! Form::text('zip', $user->zip, array('class'=>'form-control')) !!}
                                 </div>
 
+
                                 {!! Form::hidden('id', $user->id, array('class'=>'form-control')) !!}
-
-
                             </div>
 
                         </div>
@@ -113,4 +112,36 @@
     </div>
     {!! Form::close() !!}
     </div>
+
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
+        });
+        $(function(){
+            $('.delete').click(function(e) {
+                e.preventDefault();
+                var id = $(this).attr('id');
+                var url = $(this).attr('href');
+                var action = $(this).attr('data-action');
+                var  data = 'id='+ id +'&action='+ action;
+                if(confirm('Are you sure?')) {
+                    $.ajax({
+                        url: 'user/status',
+                        type: "POST",
+                        cache: false,
+                        data: data,
+                        success: function (res) {
+                            $('.row_'+id).slideUp.hide();
+                        },
+                        error: function (err) {
+                            alert(err);
+                        }
+
+                    });
+                }
+            });
+
+        });
+    </script>
+
 @endsection

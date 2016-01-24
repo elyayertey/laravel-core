@@ -6,6 +6,7 @@ use App\Settings;
 use Request;
 use App\Http\Requests;
 use App\Http\Requests\SettingsRequest;
+use App\Http\Requests\StatusRequest;
 use App\Http\Controllers\Controller;
 use App\Users;
 use Input;
@@ -15,8 +16,11 @@ class UserController extends Controller
     private $id;
     private $user;
 
+
     function __construct()
     {
+        $this->middleware('auth');
+
         $this->id = Request::segment(3);
         $this->user= Users::find($this->id);
     }
@@ -49,11 +53,24 @@ class UserController extends Controller
 
   }
 
-    public function delete(Request $requests){
+    public function status(StatusRequest $requests){
         if(Request::ajax()) {
-            $id = $requests->input('id');
-            Users::delete($id);
-            //print_r($data);die;
+           $action =  $requests->input('action');
+            if($action=='delete') {
+                $user = Users::find($requests->input('id'));
+                $user->delete();
+            }
+
+            if(!empty($action)) {
+                $user = Users::find($requests->input('id'));
+                if($user->is_active=='blocked'){
+                    $user->is_active='active';
+                } elseif($user->is_active=='active'){
+                    $user->is_active='blocked';
+                }
+                $user->save();
+            }
+
         }
     }
 

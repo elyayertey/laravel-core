@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('heading')
+    <meta name="_token" content="{!! csrf_token() !!}"/>
     {{ Html::style('css/style.css') }}
 
 @endsection
@@ -10,14 +11,14 @@
     <div class="container">
         {!! Form::open(['url' => 'settings', 'files'=>true]) !!}
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
 
 
                 @include('menu')
             </div>
 
 
-            <div class="col-md-9">
+            <div class="col-md-10">
                 @include('alerts')
                 <div class="row">
 
@@ -48,7 +49,11 @@
                                        <td>{!! $user->phone !!}</td>
                                        <td>{!! $user->country !!}</td>
                                        <td>
-                                           <i class="fa fa-edit"></i>  {{ HTML::link('/user/edit/'.$user->id, 'Edit', array('id' => $user->id, 'class'=>'edit'), null)}} &nbsp;&nbsp; <i class="fa fa-trash"></i>  {{ HTML::link('user/delete', 'Delete', array('id' => $user->id, 'class'=>'delete'), null)}} </td>
+                                           <i class="fa fa-edit"></i>  {{ HTML::link('/user/edit/'.$user->id, 'edit', array('id' => $user->id, 'class'=>'edit'), null)}} &nbsp;&nbsp;
+                                           <i class="fa fa-ban"></i> {{ HTML::link('user/status', $user->is_active, array('id' => $user->id, 'class'=>'action', 'data-action'=>$user->is_active), null)}}&nbsp;&nbsp;
+                                           <i class="fa fa-trash"></i>  {{ HTML::link('user/status', 'delete', array('id' => $user->id, 'class'=>'action', 'data-action'=>'delete'), null)}}&nbsp;&nbsp;
+
+                                       </td>
                                    </tr>
                                    @endforeach
                                </table>
@@ -60,7 +65,7 @@
 
                         </div>
                         <div class="panel-footer">
-
+                            <div> {!! $users->links() !!}</div>
                         </div>
                     </div>
 
@@ -72,53 +77,7 @@
     {!! Form::close() !!}
     </div>
 
-    <script>
-
-
-
-        $(function(){
-            $('.delete').click(function(e) {
-                e.preventDefault();
-                var id = $(this).attr('id');
-                var url = $(this).attr('href')
-                var  data = 'id='+id +'_token='+ '{{ csrf_token() }}';
-                $.ajax({
-                    url:url,
-                    type:"POST",
-                        cache:false,
-                        data:data,
-                    success:function(res){
-                    console.log(res);
-            },
-            error:function(err){
-                alert(err);
-            }
-
-                });
-
-            });
-
-        });
-
-
-        /*
-
-         $(function(){
-         $('.delete').click(function(e) {
-         e.preventDefault();
-         var id = $(this).attr('id');
-         var url = $(this).attr('href');
-         $.post(url, {'id':id, '_token': '{{ csrf_token() }}', function(res){
-         alert(res);
-         }
-         });
-
-
-         });
-
-        
-         */
-    </script>
+   {!! HTML::script('js/action.js') !!}
 
 
 

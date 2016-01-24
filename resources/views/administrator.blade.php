@@ -11,14 +11,14 @@
     <div class="container">
         {!! Form::open(['url' => 'settings', 'files'=>true]) !!}
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
 
 
                 @include('menu')
             </div>
 
 
-            <div class="col-md-9">
+            <div class="col-md-10">
                 @include('alerts')
                 <div class="row">
 
