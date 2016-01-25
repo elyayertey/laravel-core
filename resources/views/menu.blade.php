@@ -7,6 +7,7 @@
             <!--Administrator Section-->
     <a href="/administrator" class="list-group-item"><i class="fa fa-lock"></i>&nbsp;&nbsp;Administrator</a>
     <a href="/users" class="list-group-item"><i class="fa fa-user"></i>&nbsp;&nbsp;Users</a>
+    <a href="/users/roles" class="list-group-item"><i class="fa fa-users"></i>&nbsp;&nbsp;Roles</a>
     <!--End Section-->
     @endif
     <a href="/messages/inbox" class="list-group-item"><i class="fa fa-list"></i>&nbsp;&nbsp;Messages</a>

@@ -44,6 +44,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/messages/sent', 'MessageController@sent');
     Route::get('/messages/compose', 'MessageController@compose');
     Route::get('/messages/read/{id}', 'MessageController@read');
+    Route::get('/users/roles', 'RolesController@index');
 
 
 
@@ -53,10 +54,13 @@ Route::group(['middleware' => 'web'], function () {
     //Posts
     Route::post('/settings', 'SettingsController@save');
     Route::post('/passwords', 'SettingsController@changePassword');
-    Route::post('/users', 'UserController@save');
+    Route::post('/users/edit/{id}', 'UserController@save');
     Route::post('/user/status', 'UserController@status');
     Route::post('/compose/send', 'MessageController@send');
     Route::post('/messages/delete', 'MessageController@delete');
     Route::post('/messages/read/{id}', 'MessageController@savereply');
+    Route::post('/users/roles', 'RolesController@save');
+    Route::post('/users/roles/delete', 'RolesController@delete');
+
 
 });

@@ -9,7 +9,7 @@
 @section('content')
 
     <div class="container">
-        {!! Form::open(['url' => 'users', 'files'=>false]) !!}
+        {!! Form::open(['url' => 'users/edit/'.$user->id, 'files'=>false]) !!}
         <div class="row">
             <div class="col-md-2">
 
@@ -93,8 +93,16 @@
                                     {!! Form::label('zip', 'Zip code') !!}
                                     {!! Form::text('zip', $user->zip, array('class'=>'form-control')) !!}
                                 </div>
+@if($user->user_level ==1)
+                                <div class="well">
 
+                                    <div class="form-group">
+                                        {!! Form::label('user_level', 'Roles') !!}
+                                        {!! Form::select('user_level',  array($roles), $user->user_level, array('class'=>'form-control'), null) !!}
+                                    </div>
 
+                                </div>
+@endif
                                 {!! Form::hidden('id', $user->id, array('class'=>'form-control')) !!}
                             </div>
 

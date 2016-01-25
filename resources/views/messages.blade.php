@@ -46,13 +46,15 @@
 
                                                 <li class="list-group-item">
                                                     <span class="pull-right">
+                                                        <?php $class='none' ?>
                                                         @if($message->read==1)
+                                                            <?php $class='text-muted'; ?>
                                                    <i class="fa fa-eye"></i>
                                                     @endif
                                                             <i class="fa fa-trash"></i> &nbsp;{!! HTML::link('messages/delete', 'Delete', array('id'=>$message->id, 'class'=>'action', 'data-action'=>'delete')) !!}
                                                     </span>
                                                     {!! $message->date_created !!} </i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <i class="fa fa-envelope-o"></i><i> &nbsp;&nbsp; <b>{!! HTML::link('/messages/read/'.$message->id, substr($message->subject, 0, 50).'...') !!} </b></li>
+                                                    <i class="fa fa-envelope-o"></i><i> &nbsp;&nbsp; <b>{!! HTML::link('/messages/read/'.$message->id, substr($message->subject, 0, 50).'...', array('class'=>$class)) !!} </b></li>
 
                                             @endforeach
 

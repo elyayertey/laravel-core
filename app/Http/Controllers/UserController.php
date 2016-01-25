@@ -10,6 +10,7 @@ use App\Http\Requests\StatusRequest;
 use App\Http\Controllers\Controller;
 use App\Users;
 use Input;
+use App\Roles;
 
 class UserController extends Controller
 {
@@ -27,8 +28,11 @@ class UserController extends Controller
 
     //
     public function edit(){
-    $user = $this->user;
-    return view('edituser', compact('user'));
+
+        $user = $this->user;
+        $roles = Roles::lists('name','id')->toArray();
+    return view('edituser', compact('user', 'roles'));
+
 }
 
   public function save(SettingsRequest $requests){
@@ -47,9 +51,10 @@ class UserController extends Controller
       $user->state = $requests->input('state');
       $user->street = $requests->input('street');
       $user->zip = $requests->input('zip');
+      $user->user_level = $requests->input('user_level');
       $user->save();
       $users = Users::all();
-      return view('users')->with(compact('users'));
+      return redirect('users')->with(compact('users'));
 
   }
 

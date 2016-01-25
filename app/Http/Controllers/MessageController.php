@@ -58,6 +58,8 @@ class MessageController extends Controller
     public function read(){
         $id = Request::segment(3);
         $messages = Messages::find($id);
+        $messages->read = 1;
+        $messages->save();
         $replies = Reply::leftjoin('users', 'users.id', '=', 'reply.user_id')->where('reply.message_id', $id)->where('reply.Active', '1')->orderby('reply.created_at', 'desc')->paginate(5);
         return view('read', compact('messages', 'replies'));
 

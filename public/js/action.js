@@ -17,7 +17,6 @@ $(function(){
                 cache: false,
                 data: data,
                 success: function (res) {
-                    alert(res);
                     $('.row_'+id).slideUp('fase').hide();
                 },
                 error: function (err) {
